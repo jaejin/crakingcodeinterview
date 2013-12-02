@@ -38,6 +38,10 @@ public class NodeUtils {
         Node n = head;
 
 
+        if(index < 0 ) {
+            return -1;
+        }
+
         if (index == 0) {
             return n.data;
         }
