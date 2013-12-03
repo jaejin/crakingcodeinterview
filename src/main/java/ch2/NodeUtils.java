@@ -1,7 +1,12 @@
 package ch2;
 
+
+import org.apache.log4j.Logger;
+import org.apache.log4j.spi.LoggerFactory;
+
 import java.util.HashSet;
 import java.util.Set;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,6 +17,8 @@ import java.util.Set;
  */
 public class NodeUtils {
 
+    static Logger logger = Logger.getLogger(NodeUtils.class);
+    // 2.1
     public Node duplicate(Node head) {
         if(head == null ) {
            throw new NullPointerException();
@@ -34,6 +41,7 @@ public class NodeUtils {
         return head;
     }
 
+    // 2.2
     public int indexOf(Node head,int index) {
         Node n = head;
 
@@ -56,5 +64,70 @@ public class NodeUtils {
         }
 
         return -1;
+    }
+
+    public static Node[] split(Node head,int i) {
+        Node n = head;
+
+        Node[] nodes = new Node[2];
+
+        Node arrayHead1 =null;
+        Node arrayHead2 = null;
+
+
+        if ( n.data >= i ) {
+            logger.debug(" node[0] n.data in for " + n.data);
+            nodes[0] = new Node(n.data);
+            arrayHead1 = nodes[0];
+        } else {
+            logger.debug(" node[1] n.data in for " + n.data);
+            nodes[1] = new Node(n.data);;
+            logger.debug(nodes[1].printNode());
+            arrayHead2 = nodes[1];
+        }
+        if(nodes[0] != null) {
+            logger.debug("node[0]="+nodes[0].printNode());
+        }
+
+        if(nodes[1] != null) {
+            logger.debug("node[1]="+nodes[1].printNode());
+        }
+
+
+
+
+        while(n.next != null) {
+
+            logger.debug("node[0]="+nodes[0].printNode());
+            logger.debug("node[1]="+nodes[1].printNode());
+
+
+            if(n.next.data >= i ) {
+                logger.debug(" head[1] n.next.data in for " + n.next.data);
+                if(arrayHead1 == null ) {
+                    arrayHead1 = new Node(n.next.data);
+                } else {
+                    arrayHead1.next = new Node(n.next.data);
+                    arrayHead1 = arrayHead1.next;
+                }
+
+            } else {
+                logger.debug(" head[2] n.next.data in for " + n.next.data);
+                if(arrayHead2 == null ) {
+                    arrayHead2 = new Node(n.next.data);
+                } else {
+                    arrayHead2.next = new Node(n.next.data);
+                    arrayHead2 = arrayHead2.next;
+                }
+            }
+
+            n = n.next;
+        }
+
+
+        logger.debug("node[0]="+nodes[0].printNode());
+        logger.debug("node[1]="+nodes[1].printNode());
+
+        return nodes;
     }
 }
