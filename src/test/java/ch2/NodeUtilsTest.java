@@ -87,8 +87,29 @@ public class NodeUtilsTest {
         Node node = makeNodeData();
         System.out.println(node.printNode());
 
-        Node[] nodes = NodeUtils.split(makeNodeData(),6);
+        Node[] nodes = NodeUtils.split(makeNodeData(),3);
 
-//        assertEquals("1->2->3",nodes[0].printNode());
+        assertEquals("1->2",nodes[1].printNode());
+    }
+
+
+    public Node makeNodeDataFromString(String nums) {
+        Node head= new Node(nums.charAt(0)-48);
+
+        Node node = head;
+        for(int i=1;i<nums.length();i++) {
+            Node end = new Node(nums.charAt(i)-48);
+            node.next = end;
+            node = node.next;
+        }
+        return head;
+    }
+
+    @Test
+    public void testSum() throws Exception {
+
+        Node first =makeNodeDataFromString("716");
+        Node second =makeNodeDataFromString("592");
+
     }
 }

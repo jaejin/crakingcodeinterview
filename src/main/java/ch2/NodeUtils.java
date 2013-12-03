@@ -66,6 +66,7 @@ public class NodeUtils {
         return -1;
     }
 
+    //2.4
     public static Node[] split(Node head,int i) {
         Node n = head;
 
@@ -98,14 +99,13 @@ public class NodeUtils {
 
         while(n.next != null) {
 
-            logger.debug("node[0]="+nodes[0].printNode());
-            logger.debug("node[1]="+nodes[1].printNode());
 
 
             if(n.next.data >= i ) {
                 logger.debug(" head[1] n.next.data in for " + n.next.data);
                 if(arrayHead1 == null ) {
                     arrayHead1 = new Node(n.next.data);
+                    nodes[0] = arrayHead1;
                 } else {
                     arrayHead1.next = new Node(n.next.data);
                     arrayHead1 = arrayHead1.next;
@@ -115,6 +115,7 @@ public class NodeUtils {
                 logger.debug(" head[2] n.next.data in for " + n.next.data);
                 if(arrayHead2 == null ) {
                     arrayHead2 = new Node(n.next.data);
+                    nodes[1] = arrayHead2;
                 } else {
                     arrayHead2.next = new Node(n.next.data);
                     arrayHead2 = arrayHead2.next;
@@ -129,5 +130,29 @@ public class NodeUtils {
         logger.debug("node[1]="+nodes[1].printNode());
 
         return nodes;
+    }
+
+    // 2.5
+    public static Node sum(Node one,Node two) {
+        Node result = new Node(one.data + two.data);
+
+
+        Node node = result;
+
+        while (one.next != null || two.next != null) {
+            if (one.next != null && two.next != null) {
+                result.next = new Node(one.next.data + two.next.data);
+                one = one.next;
+                two = two.next;
+            } else if ( one.next != null ) {
+                result.next = new Node(one.next.data);
+                one = one.next;
+            } else if ( two.next != null ) {
+                result.next = new Node(two.next.data);
+                two = two.next;
+            }
+
+            node = result.next;
+        }
     }
 }

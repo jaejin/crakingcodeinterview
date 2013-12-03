@@ -49,13 +49,16 @@ public class Node {
         StringBuffer result = new StringBuffer() ;
         result.append(this.data);
 
-        while(n.next != null) {
-            result.append("->").append(n.data);
-            n = n.next;
-        }
+        if( n != null ) {
+            while(n.next != null) {
+                result.append("->").append(n.data);
+                n = n.next;
+            }
 
-        if (n != null) {
-            result.append("->").append(n.data);
+            if (n != null) {
+                result.append("->").append(n.data);
+            }
+
         }
 
         return result.toString();
