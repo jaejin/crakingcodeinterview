@@ -132,27 +132,110 @@ public class NodeUtils {
         return nodes;
     }
 
-    // 2.5
-    public static Node sum(Node one,Node two) {
-        Node result = new Node(one.data + two.data);
+    public static Node lastRemove(Node head) {
+        Node node =head;
 
+        while (node.next.next != null )   {
+            node = node.next;
+        }
 
-        Node node = result;
+        node.next = null;
 
-        while (one.next != null || two.next != null) {
-            if (one.next != null && two.next != null) {
-                result.next = new Node(one.next.data + two.next.data);
-                one = one.next;
-                two = two.next;
-            } else if ( one.next != null ) {
-                result.next = new Node(one.next.data);
-                one = one.next;
-            } else if ( two.next != null ) {
-                result.next = new Node(two.next.data);
-                two = two.next;
+        return head;
+    }
+
+    public static Node lastNode(Node head) {
+        Node node =head;
+
+        while (node.next != null )   {
+            node = node.next;
+        }
+
+        return node;
+    }
+
+    public static Node append(Node head,Node tail) {
+        Node node = head;
+        while(node.next != null) {
+            node = node.next;
+        }
+        node.next = tail;
+        return head;
+    }
+
+    public static Node reverse(Node head) {
+        if( head.next== null)
+            return head;
+        return append(reverse(head.next),new Node(head.data));
+    }
+
+    public static Node sumHelper(Node head, Node result, Node one, Node two) {
+        if(one == null &&  two == null ) {
+            if( lastNode(head).data == 0 ) {
+                return lastRemove(head);
+            } else {
+                return head;
             }
 
-            node = result.next;
         }
+
+        if(result == null) {
+            result = new Node(0);
+        }
+
+        if (one != null && two != null) {
+
+            int data = (one.data + two.data+result.data)%10;
+            int adder = (one.data + two.data+result.data)/10;
+
+            result.data = data;
+            result.next = new Node(adder);
+
+            one = one.next;
+            two = two.next;
+        } else if ( one != null ) {
+            int data = (one.data +result.data)%10;
+            int adder = (one.data+result.data)/10;
+
+            result.data = data;
+            result.next = new Node(adder);
+
+            one = one.next;
+        } else if ( two != null ) {
+
+            int data = (two.data +result.data)%10;
+            int adder = (two.data+result.data)/10;
+
+            result.data = data;
+            result.next = new Node(adder);
+
+
+            two = two.next;
+        }
+
+        return sumHelper(head, result.next, one, two);
+    }
+
+    // 2.5
+    public static Node sum(Node one,Node two) {
+        Node result = new Node(0);
+
+        Node head = result;
+        int data = (one.data + two.data)%10;
+        int adder = (one.data + two.data)/10;
+
+        result.data = data;
+        result.next = new Node(adder);
+
+        return sumHelper(head, result.next,one.next,two.next);
+    }
+
+    // 2.5-2
+    public static Node sum2(Node one,Node two) {
+        return reverse(sum(reverse(one), reverse(two))) ;
+    }
+
+    public static boolean isPalidrome(Node one) {
+        return one.printNode().equals(reverse(one).printNode());
     }
 }

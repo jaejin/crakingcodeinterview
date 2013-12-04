@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created with IntelliJ IDEA.
@@ -111,5 +113,68 @@ public class NodeUtilsTest {
         Node first =makeNodeDataFromString("716");
         Node second =makeNodeDataFromString("592");
 
+        assertEquals("2->1->9", NodeUtils.sum(first, second).printNode());
+
     }
+
+    @Test
+    public void testSum2() throws Exception {
+
+        Node first =makeNodeDataFromString("717");
+        Node second =makeNodeDataFromString("592");
+
+        assertEquals("2->1->0->1",NodeUtils.sum(first,second).printNode());
+
+    }
+
+    @Test
+    public void testSum3() throws Exception {
+
+        Node first =makeNodeDataFromString("717");
+        Node second =makeNodeDataFromString("59");
+
+        assertEquals("2->1->8",NodeUtils.sum(first,second).printNode());
+
+    }
+
+    @Test
+    public void testAppend() throws Exception {
+
+        Node first =makeNodeDataFromString("595");
+        Node tail =makeNodeDataFromString("7");
+
+        assertEquals("5->9->5->7",NodeUtils.append(first,tail).printNode());
+
+    }
+    @Test
+    public void testReverse() throws Exception {
+
+        Node first =makeNodeDataFromString("597");
+
+        assertEquals("7->9->5",NodeUtils.reverse(first).printNode());
+
+    }
+
+    @Test
+    public void testSum5() throws Exception {
+
+        Node first =makeNodeDataFromString("617");
+        Node second =makeNodeDataFromString("295");
+
+        assertEquals("9->1->2",NodeUtils.sum2(first, second).printNode());
+    }
+
+
+    @Test
+    public void isPalindrome() throws Exception {
+
+        Node first =makeNodeDataFromString("717");
+        assertTrue(NodeUtils.isPalidrome(first));
+
+        first =makeNodeDataFromString("715");
+        assertFalse(NodeUtils.isPalidrome(first));
+    }
+
+
+
 }
