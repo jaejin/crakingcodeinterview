@@ -175,6 +175,12 @@ public class NodeUtilsTest {
         assertFalse(NodeUtils.isPalidrome(first));
     }
 
+    @Test
+    public void testCirculate() throws Exception {
+
+        Node first =makeNodeDataFromString("123453");
+        assertEquals(3,NodeUtils.circulate(first));
+    }
 
 
 }
