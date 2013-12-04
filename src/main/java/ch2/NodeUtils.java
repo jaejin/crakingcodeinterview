@@ -235,6 +235,27 @@ public class NodeUtils {
         return reverse(sum(reverse(one), reverse(two))) ;
     }
 
+    // 2.6
+    public static int circulate(Node one) {
+        Set<Integer> set = new HashSet<Integer>();
+
+        while(one.next != null) {
+
+            if(set.contains(one.data)) {
+                return one.data;
+            }
+
+            set.add(one.data);
+            one = one.next;
+        }
+
+        if(set.contains(one.data)) {
+            return one.data;
+        }
+
+        return -1;
+    }
+
     public static boolean isPalidrome(Node one) {
         return one.printNode().equals(reverse(one).printNode());
     }
